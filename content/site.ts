@@ -63,9 +63,12 @@ export const profile = {
     "Placeholder bio. Write two or three sentences about your research interests, what you are working on now, and what you are looking for.",
     "A second paragraph is optional — use it for background, education, or a note on how best to reach you.",
   ],
-  // TODO(asim): drop a PDF at public/resume.pdf and set this to
-  // "/resume.pdf". Left null so the deployed site has no broken link.
-  resume: null as string | null,
+  /**
+   * Where the CV lives, relative to public/. The link renders only when the
+   * file is actually present -- see lib/cv.ts -- so this can stay set even
+   * before the PDF is added. Set to null to hide the link outright.
+   */
+  cv: "/cv.pdf" as string | null,
 } as const;
 
 // TODO(asim): add Google Scholar / X if you use them.

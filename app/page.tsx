@@ -9,6 +9,7 @@ import { news } from "@/content/news";
 import { profile } from "@/content/site";
 import { formatDate } from "@/lib/content";
 import { getLatestPosts } from "@/lib/posts";
+import { getCvHref } from "@/lib/cv";
 import { getFeaturedProjects } from "@/lib/projects";
 import { getSelectedPublications } from "@/lib/publications";
 
@@ -16,6 +17,7 @@ export default function AboutPage() {
   const latestPosts = getLatestPosts(3);
   const selectedPublications = getSelectedPublications();
   const featuredProjects = getFeaturedProjects();
+  const cvHref = getCvHref();
 
   return (
     <>
@@ -48,15 +50,15 @@ export default function AboutPage() {
 
           <div className="mt-6 flex flex-wrap items-center gap-6">
             <SocialIcons />
-            {profile.resume && (
+            {cvHref && (
               <a
-                href={profile.resume}
+                href={cvHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="border-line text-ink-muted hover:border-accent hover:text-accent inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm transition-colors"
               >
                 <FaFilePdf className="size-3.5" aria-hidden />
-                Résumé
+                CV
               </a>
             )}
           </div>

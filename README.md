@@ -62,6 +62,11 @@ Titles are rendered exactly as written — the parser's sentence-casing is off.
 
 **Identity and news** live in `content/site.ts` and `content/news.ts`.
 
+**Your CV** — drop the PDF at `public/cv.pdf`. The link on the landing page
+appears only when that file exists (`lib/cv.ts` checks at build time), so there
+is no code to change and no dead link before you add it. To use a different
+filename or hide the link, edit `profile.cv` in `content/site.ts`.
+
 Frontmatter is validated at build time (`lib/frontmatter.ts`), so a mistyped key
 fails the build with the file named rather than rendering `undefined`.
 
