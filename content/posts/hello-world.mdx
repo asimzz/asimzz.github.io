@@ -1,0 +1,40 @@
+---
+title: Rebuilding this site as a single Next.js app
+date: 2026-08-21
+description: Why the old client/backend split went away, and what replaced it.
+tags: [meta, nextjs]
+---
+
+This site used to be two deployables: a Create React App frontend and an Express
+API backed by Mongo. The API existed to serve a list of projects and skills that
+changed maybe twice a year, which is a strange reason to run a database.
+
+Everything is now one statically exported Next.js app. Content lives in this
+repository as MDX and YAML, and the whole site is pre-rendered at build time.
+
+## What that buys
+
+- No server to keep alive, and nothing to pay for beyond the domain.
+- Content changes go through pull requests like code does.
+- Every page is HTML on disk before a visitor ever asks for it.
+
+## Math renders
+
+Inline math works — the softmax over logits $z_i$ is $\sigma(z)_i$ — and so do
+display equations:
+
+$$
+\sigma(z)_i = \frac{e^{z_i}}{\sum_{j=1}^{K} e^{z_j}}
+$$
+
+## So does code
+
+```ts
+// lib/posts.ts -- frontmatter is validated at build time, so a typo in a key
+// fails the build instead of rendering "undefined".
+export function getLatestPosts(count: number): Post[] {
+  return load().slice(0, count);
+}
+```
+
+That is the whole stack.
