@@ -68,14 +68,13 @@ export const profile = {
   resume: null as string | null,
 } as const;
 
-// TODO(asim): confirm the GitHub and LinkedIn handles; remove any you do not
-// want shown, and add Google Scholar / X if you use them.
+// TODO(asim): add Google Scholar / X if you use them.
 export const socials: SocialLink[] = [
   { label: "Email", href: "mailto:amohamed@aimsammi.org", icon: "email" },
   { label: "GitHub", href: "https://github.com/asimzz", icon: "github" },
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/asimzz",
+    href: "https://www.linkedin.com/in/asim-mohamed-9a2047135/",
     icon: "linkedin",
   },
   { label: "RSS", href: "/feed.xml", icon: "rss" },
