@@ -71,7 +71,7 @@ fails the build with the file named rather than rendering `undefined`.
 
 ## Deploying
 
-Pushing to `master` runs `.github/workflows/deploy.yml`, which builds and
+Pushing to `main` runs `.github/workflows/deploy.yml`, which builds and
 publishes `out/`. Two one-time setup steps in the repo settings:
 
 1. **Settings → Pages → Source: GitHub Actions.**
