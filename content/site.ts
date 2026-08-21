@@ -8,9 +8,29 @@
 // NEXT_PUBLIC_SITE_URL in CI. Canonical URLs, Open Graph tags, the sitemap and
 // the RSS feed all derive from it, so a wrong value here silently produces
 // wrong absolute URLs everywhere.
-export const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
-  "https://asimzz.github.io";
+const FALLBACK_SITE_URL = "https://asimzz.github.io";
+
+function resolveSiteUrl(): string {
+  // An unset GitHub Actions repository variable interpolates to an empty
+  // string, not to nothing -- so this must test for falsiness. Using ?? here
+  // lets "" through, and `new URL("")` throws during metadata collection.
+  const configured = process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(
+    /\/+$/,
+    "",
+  );
+  if (!configured) return FALLBACK_SITE_URL;
+
+  try {
+    new URL(configured);
+  } catch {
+    throw new Error(
+      `NEXT_PUBLIC_SITE_URL must be an absolute URL such as https://example.com, received: "${configured}"`,
+    );
+  }
+  return configured;
+}
+
+export const siteUrl = resolveSiteUrl();
 
 export const site = {
   title: "Asim Abdalla",
