@@ -1,5 +1,5 @@
 import { profile } from "@/content/site";
-import type { Publication } from "@/lib/publications";
+import { ET_AL, type Publication } from "@/lib/publications";
 
 /** Compares an author string against the site owner, surname first or last. */
 function isOwner(author: string): boolean {
@@ -33,7 +33,9 @@ export function PublicationEntry({
               ) : (
                 author
               )}
-              {index < publication.authors.length - 1 && ", "}
+              {index < publication.authors.length - 1 &&
+                // "Asim Mohamed et al.", not "Asim Mohamed, et al."
+                (publication.authors[index + 1] === ET_AL ? " " : ", ")}
             </span>
           ))}
         </p>

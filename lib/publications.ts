@@ -36,9 +36,18 @@ function asList(value: unknown): string[] {
   return single ? [single] : [];
 }
 
+/**
+ * BibTeX's "and others" marker, which the parser surfaces as a creator whose
+ * only part is the literal surname "others".
+ */
+export const ET_AL = "et al.";
+
 /** "Mohamed, Asim" -> "Asim Mohamed"; corporate names pass through whole. */
 function formatCreator(creator: Creator): string {
   if (creator.name) return creator.name;
+  if (!creator.firstName && creator.lastName?.toLowerCase() === "others") {
+    return ET_AL;
+  }
   const parts = [
     creator.firstName,
     creator.prefix,
