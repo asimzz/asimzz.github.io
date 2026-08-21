@@ -1,7 +1,7 @@
 import { profile } from "@/content/site";
 import type { Publication } from "@/lib/publications";
 
-/** Compares "Asim Abdalla" against the site owner, surname first or last. */
+/** Compares an author string against the site owner, surname first or last. */
 function isOwner(author: string): boolean {
   const surname = profile.name.split(" ").at(-1)?.toLowerCase();
   if (!surname) return false;

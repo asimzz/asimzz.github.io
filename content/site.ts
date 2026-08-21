@@ -33,7 +33,7 @@ function resolveSiteUrl(): string {
 export const siteUrl = resolveSiteUrl();
 
 export const site = {
-  title: "Asim Abdalla",
+  title: "Asim Mohamed",
   // TODO(asim): one line, used as the default meta description.
   description: "Machine learning researcher and software engineer.",
   locale: "en",
@@ -46,15 +46,14 @@ export type SocialLink = {
 };
 
 export const profile = {
-  name: "Asim Abdalla",
+  name: "Asim Mohamed",
   // TODO(asim): your role and affiliation, shown under your name.
   role: "Machine Learning Researcher",
   affiliation: "African Institute for Mathematical Sciences",
   location: "",
   image: {
-    // TODO(asim): replace with a real square photo, e.g. /img/profile.jpg.
-    src: "/img/profile.svg",
-    alt: "Asim Abdalla",
+    src: "/img/profile.jpg",
+    alt: "Asim Mohamed",
     width: 400,
     height: 400,
   },
@@ -69,9 +68,10 @@ export const profile = {
   resume: null as string | null,
 } as const;
 
-// TODO(asim): confirm these handles; remove any you do not want shown.
+// TODO(asim): confirm the GitHub and LinkedIn handles; remove any you do not
+// want shown, and add Google Scholar / X if you use them.
 export const socials: SocialLink[] = [
-  { label: "Email", href: "mailto:yassir@aims.ac.za", icon: "email" },
+  { label: "Email", href: "mailto:amohamed@aimsammi.org", icon: "email" },
   { label: "GitHub", href: "https://github.com/asimzz", icon: "github" },
   {
     label: "LinkedIn",

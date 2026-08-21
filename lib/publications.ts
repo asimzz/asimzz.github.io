@@ -36,7 +36,7 @@ function asList(value: unknown): string[] {
   return single ? [single] : [];
 }
 
-/** "Abdalla, Asim" -> "Asim Abdalla"; corporate names pass through whole. */
+/** "Mohamed, Asim" -> "Asim Mohamed"; corporate names pass through whole. */
 function formatCreator(creator: Creator): string {
   if (creator.name) return creator.name;
   const parts = [
