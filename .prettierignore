@@ -3,3 +3,7 @@ out
 node_modules
 pnpm-lock.yaml
 public/feed.xml
+
+# MDX is prose, not code. Prettier rewraps it and, worse, mangles JSX comments
+# ({/* ... */} becomes {/_ ... _/}) which then fails to compile.
+content/**/*.mdx
