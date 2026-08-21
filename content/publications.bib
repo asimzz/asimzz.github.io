@@ -1,7 +1,11 @@
 % Publications are read from this file at build time.
 %
-% TODO(asim): replace these placeholder entries with a real export from Google
-% Scholar or Zotero.
+% TODO(asim): two things are missing and only you can supply them --
+%   1. CO-AUTHORS. The CV lists no co-author names, so each entry uses
+%      "and others" (rendered as "et al."). Replace with the real author lists
+%      in the correct order; as it stands these under-credit your collaborators.
+%   2. LINKS. The [Paper Link] anchors in the CV are hyperlinks whose URLs did
+%      not survive the PDF-to-text conversion. Add url / doi / eprint per entry.
 %
 % Conventions this site relies on:
 %   keywords = {selected}   -> also shown on the landing page
@@ -9,28 +13,30 @@
 %   doi                     -> "DOI" link
 %   eprint + archivePrefix  -> "arXiv" link
 %   code / slides / poster  -> extra links, in that order
-%
-% Wrap acronyms in braces ({LLM}) if you ever turn sentence-casing back on.
 
-@inproceedings{placeholder2026example,
-  title         = {A Placeholder Paper Title That Should Be Replaced},
-  author        = {Mohamed, Asim and Coauthor, Jane},
-  booktitle     = {Proceedings of Some Conference},
-  year          = {2026},
-  volume        = {1},
-  pages         = {1--12},
-  eprint        = {2601.00001},
-  archivePrefix = {arXiv},
-  keywords      = {selected}
+@misc{mohamed2025watermarking,
+  title        = {Is Multilingual {LLM} Watermarking Truly Multilingual? A Simple Back-Translation Solution},
+  author       = {Mohamed, Asim and others},
+  year         = {2025},
+  month        = {10},
+  howpublished = {Under review},
+  keywords     = {selected}
 }
 
-@article{placeholder2025another,
-  title   = {Another Placeholder, This One a Journal Article},
-  author  = {Mohamed, Asim},
-  journal = {Journal of Placeholder Results},
-  year    = {2025},
-  volume  = {12},
-  number  = {3},
-  pages   = {45--67},
-  doi     = {10.1000/placeholder}
+@inproceedings{mohamed2025arabicreadability,
+  title     = {Enhancing Arabic Readability Prediction with Hybrid {BERT} and Linguistic Features},
+  author    = {Mohamed, Asim and others},
+  booktitle = {Proceedings of ArabicNLP 2025: BAREC Shared Task},
+  year      = {2025},
+  month     = {8},
+  keywords  = {selected}
+}
+
+@inproceedings{mohamed2024coptic,
+  title     = {From Nile Sands to Digital Hands: Machine Translation of Coptic Texts},
+  author    = {Mohamed, Asim and others},
+  booktitle = {Proceedings of the Second Arabic Natural Language Processing Conference},
+  year      = {2024},
+  month     = {8},
+  keywords  = {selected}
 }

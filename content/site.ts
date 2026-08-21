@@ -34,8 +34,8 @@ export const siteUrl = resolveSiteUrl();
 
 export const site = {
   title: "Asim Mohamed",
-  // TODO(asim): one line, used as the default meta description.
-  description: "Machine learning researcher and software engineer.",
+  description:
+    "AI engineer and machine learning researcher working on multilingual NLP and the safety of large language models.",
   locale: "en",
 } as const;
 
@@ -47,21 +47,23 @@ export type SocialLink = {
 
 export const profile = {
   name: "Asim Mohamed",
-  // TODO(asim): your role and affiliation, shown under your name.
-  role: "Machine Learning Researcher",
-  affiliation: "African Institute for Mathematical Sciences",
-  location: "",
+  role: "AI Engineer",
+  affiliation: "Enigma AI",
+  location: "Rwanda",
   image: {
     src: "/img/profile.jpg",
     alt: "Asim Mohamed",
     width: 400,
     height: 400,
   },
-  // TODO(asim): rewrite this bio. Markdown-free plain paragraphs; each string
-  // becomes its own <p>.
+  /**
+   * Drawn from the CV, so every claim here is checkable. TODO(asim): rewrite in
+   * your own voice -- this reads accurately but not like you.
+   */
   bio: [
-    "Placeholder bio. Write two or three sentences about your research interests, what you are working on now, and what you are looking for.",
-    "A second paragraph is optional — use it for background, education, or a note on how best to reach you.",
+    "I am an AI engineer at Enigma AI and a graduate of the African Master's in Machine Intelligence (AMMI) at AIMS, where my thesis was supervised by Dr. Martin Gubri of Parameter Lab.",
+    "My research sits at the intersection of multilingual NLP and the safety of large language models: whether text watermarks survive translation, readability prediction for Arabic, and machine translation for low-resource languages such as Coptic.",
+    "Before AMMI I read electrical and electronic engineering at the University of Khartoum, and I have since worked across full-stack and AI engineering. The fastest way to reach me is by email.",
   ],
   /**
    * Where the CV lives, relative to public/. The link renders only when the
