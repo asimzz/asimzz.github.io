@@ -1,0 +1,6 @@
+<!-- Placeholder monogram. TODO(asim): replace with a real square photo and
+     point profile.image.src at it in content/site.ts. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="Placeholder portrait">
+  <rect width="400" height="400" fill="#e8e6e1"/>
+  <text x="200" y="200" font-family="Georgia, 'Times New Roman', serif" font-size="150" font-weight="600" fill="#9a3412" text-anchor="middle" dominant-baseline="central">AA</text>
+</svg>
