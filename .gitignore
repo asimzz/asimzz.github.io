@@ -41,3 +41,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+
+# derived from public/cv.pdf via markitdown; not part of the site
+/cv.md
