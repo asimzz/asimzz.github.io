@@ -23,7 +23,7 @@ shared beyond the layout ideas.
 ```bash
 pnpm install
 pnpm dev          # http://localhost:3000 — drafts are visible here
-pnpm build        # writes out/ (runs prebuild -> public/feed.xml first)
+pnpm build        # writes out/
 pnpm serve        # serve out/ locally to check the real export
 pnpm typecheck
 pnpm lint

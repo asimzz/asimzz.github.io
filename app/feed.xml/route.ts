@@ -1,15 +1,8 @@
-/**
- * Writes public/feed.xml before `next build` runs, so the static export picks
- * it up as a plain asset.
- *
- * This is a build script rather than an app/feed.xml/route.ts because route
- * handlers are not emitted by `output: "export"` unless forced static, and a
- * file on disk is easier to reason about.
- */
-import fs from "node:fs";
-import path from "node:path";
-import { site, siteUrl } from "@/content/site";
 import { getPosts } from "@/lib/posts";
+import { site, siteUrl } from "@/content/site";
+
+// Route handlers are only emitted by `output: "export"` when explicitly static.
+export const dynamic = "force-static";
 
 function escapeXml(value: string): string {
   return value
@@ -24,7 +17,7 @@ function toRfc822(date: string): string {
   return new Date(`${date}T00:00:00Z`).toUTCString();
 }
 
-function buildFeed(): string {
+export function GET(): Response {
   const posts = getPosts();
   const updated = posts[0]?.date;
 
@@ -42,7 +35,7 @@ ${post.tags.map((tag) => `      <category>${escapeXml(tag)}</category>`).join("\
     })
     .join("\n");
 
-  return `<?xml version="1.0" encoding="UTF-8"?>
+  const feed = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>${escapeXml(site.title)}</title>
@@ -55,8 +48,8 @@ ${items}
   </channel>
 </rss>
 `;
-}
 
-const target = path.join(process.cwd(), "public/feed.xml");
-fs.writeFileSync(target, buildFeed(), "utf8");
-console.log(`  ✓ wrote public/feed.xml (${getPosts().length} posts)`);
+  return new Response(feed, {
+    headers: { "Content-Type": "application/rss+xml; charset=utf-8" },
+  });
+}

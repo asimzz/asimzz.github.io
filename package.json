@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "tsx scripts/build-feed.ts",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
@@ -40,7 +39,6 @@
     "prettier": "^3.9.6",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4",
-    "tsx": "^4.23.12",
     "typescript": "^5"
   },
   "packageManager": "pnpm@9.15.0"
