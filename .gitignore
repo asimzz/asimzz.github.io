@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files -- the committed template is the one exception
 .env*
+!.env.example
 
 # vercel
 .vercel
