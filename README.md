@@ -1,11 +1,7 @@
-# portfolio
+# asimzz.github.io
 
 Personal site: about, publications, projects, and a blog. One statically
 exported [Next.js](https://nextjs.org) app, deployed to GitHub Pages.
-
-The information architecture follows [al-folio](https://github.com/alshedivat/al-folio),
-re-implemented in React and Tailwind — al-folio itself is Jekyll, so nothing is
-shared beyond the layout ideas.
 
 ## Stack
 
