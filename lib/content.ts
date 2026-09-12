@@ -49,3 +49,15 @@ export function formatDate(iso: string): string {
     timeZone: "UTC",
   });
 }
+
+/**
+ * "Jan 2026". News is rendered to the month; the full date is still what gets
+ * stored and what goes in the <time> element's dateTime, so nothing is lost.
+ */
+export function formatMonth(iso: string): string {
+  return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    timeZone: "UTC",
+  });
+}

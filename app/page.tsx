@@ -7,7 +7,7 @@ import { Section } from "@/components/ui/section";
 import { SocialIcons } from "@/components/ui/social-icons";
 import { news } from "@/content/news";
 import { profile } from "@/content/site";
-import { formatDate } from "@/lib/content";
+import { formatMonth } from "@/lib/content";
 import { getLatestPosts } from "@/lib/posts";
 import { getCvHref } from "@/lib/cv";
 import { Mdx } from "@/lib/mdx";
@@ -82,7 +82,7 @@ export default function AboutPage() {
                   dateTime={item.date}
                   className="text-ink-faint shrink-0 font-mono text-xs sm:w-24 sm:pt-0.5"
                 >
-                  {formatDate(item.date)}
+                  {formatMonth(item.date)}
                 </time>
                 <span className="text-ink-muted leading-relaxed">
                   {item.text}
