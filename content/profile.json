@@ -40,6 +40,11 @@
       "label": "Google Scholar",
       "href": "https://scholar.google.com/citations?hl=en&user=MpWMMH8AAAAJ",
       "icon": "scholar"
+    },
+    {
+      "label": "X (Twitter)",
+      "href": "https://x.com/amohamed264",
+      "icon": "x"
     }
   ]
 }
