@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FaFilePdf } from "react-icons/fa6";
 import { PublicationEntry } from "@/components/publications/publication-entry";
 import { PostList } from "@/components/ui/post-list";
 import { Section } from "@/components/ui/section";
-import { SocialIcons } from "@/components/ui/social-icons";
+import { DocumentIcon } from "@/components/ui/icons";
+import { SocialIcons, socialIconLinkClass } from "@/components/ui/social-icons";
 import { news } from "@/content/news";
 import { profile } from "@/content/site";
 import { formatMonth } from "@/lib/content";
@@ -49,19 +49,25 @@ export default function AboutPage() {
             <p className="text-ink-faint mt-1 text-sm">{profile.location}</p>
           )}
 
-          <div className="mt-6 flex flex-wrap items-center gap-6">
-            <SocialIcons />
-            {cvHref && (
-              <a
-                href={cvHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="border-line text-ink-muted hover:border-accent hover:text-accent inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm transition-colors"
-              >
-                <FaFilePdf className="size-3.5" aria-hidden />
-                CV
-              </a>
-            )}
+          {/* The CV is passed in rather than listed in `socials` because it
+              only renders when the PDF is actually in public/. */}
+          <div className="mt-6">
+            <SocialIcons
+              trailing={
+                cvHref && (
+                  <a
+                    href={cvHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="CV"
+                    title="CV"
+                    className={socialIconLinkClass}
+                  >
+                    <DocumentIcon className="size-5" aria-hidden />
+                  </a>
+                )
+              }
+            />
           </div>
         </div>
       </section>
@@ -69,6 +75,24 @@ export default function AboutPage() {
       <div className="prose mt-10">
         <Mdx source={profile.bio} />
       </div>
+
+      {profile.researchInterests.length > 0 && (
+        <Section title="research interests">
+          <ul className="space-y-2">
+            {profile.researchInterests.map((interest) => (
+              <li
+                key={interest}
+                className="text-ink-muted flex gap-3 text-sm leading-relaxed"
+              >
+                <span className="text-ink-faint" aria-hidden>
+                  &mdash;
+                </span>
+                <span>{interest}</span>
+              </li>
+            ))}
+          </ul>
+        </Section>
+      )}
 
       {news.length > 0 && (
         <Section title="news">
