@@ -8,13 +8,17 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
+    "content:sync": "node --env-file-if-exists=.env.local scripts/sync-notion.mts",
+    "content:seed": "node --env-file-if-exists=.env.local scripts/seed-notion.mts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "serve": "pnpm dlx serve out"
   },
   "dependencies": {
+    "@notionhq/client": "^5.26.0",
     "@retorquere/bibtex-parser": "^10.0.1",
     "gray-matter": "^4.0.3",
+    "image-size": "^2.0.2",
     "katex": "^0.18.4",
     "next": "16.3.2",
     "next-mdx-remote": "^6.0.0",

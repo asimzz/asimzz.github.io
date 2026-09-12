@@ -1,0 +1,45 @@
+{
+  "name": "Asim Mohamed",
+  "role": "Machine Learning Researcher",
+  "affiliation": null,
+  "location": "Rwanda",
+  "description": "Machine learning researcher working on AI security, content provenance and watermarking, the safety of AI agents, and trustworthy multilingual NLP.",
+  "image": {
+    "src": "/img/notion/profile/profile-d31e0c1c.jpg",
+    "alt": "Asim Mohamed",
+    "width": 400,
+    "height": 400
+  },
+  "cv": "/cv.pdf",
+  "researchInterests": [
+    "AI security and adversarial robustness of LLMs",
+    "Content provenance and watermarking",
+    "Safety of AI agents and agentic automation",
+    "Trustworthy AI and NLP",
+    "Multilingual and low-resource NLP safety",
+    "Evaluation and red-teaming of language models"
+  ],
+  "bio": "I am a machine learning researcher working on AI security, content provenance, and the safety of language models and the agents built on top of them. I hold a master's in Machine Intelligence from the African Master's in Machine Intelligence (AMMI) at AIMS, where my thesis on multilingual LLM watermarking was supervised by Dr. Martin Gubri of Parameter Lab.\n\nThe through-line of my work is whether safety guarantees hold up outside English. My papers show that multilingual LLM watermarks can be erased by a simple back-translation attack, predict Arabic readability with hybrid BERT and linguistic features, and establish the first Coptic-centred corpus for machine translation. I am currently surveying adversarial vulnerabilities and prompt-injection attacks in multilingual and low-resource models.\n\nI also work as a senior AI engineer building production LLM agents and retrieval systems, which keeps my research close to the failure modes that actually reach users. Before AMMI I read electrical and electronic engineering at the University of Khartoum. The fastest way to reach me is by email.",
+  "socials": [
+    {
+      "label": "Email",
+      "href": "mailto:amohamed@aimsammi.org",
+      "icon": "email"
+    },
+    {
+      "label": "GitHub",
+      "href": "https://github.com/asimzz",
+      "icon": "github"
+    },
+    {
+      "label": "LinkedIn",
+      "href": "https://www.linkedin.com/in/asim-mohamed-9a2047135/",
+      "icon": "linkedin"
+    },
+    {
+      "label": "Google Scholar",
+      "href": "https://scholar.google.com/citations?hl=en&user=MpWMMH8AAAAJ",
+      "icon": "scholar"
+    }
+  ]
+}

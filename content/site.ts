@@ -1,8 +1,16 @@
 /**
  * Single source of truth for identity and site-wide metadata.
  *
- * TODO(asim): replace the placeholders marked below with your real details.
+ * The editorial half comes from profile.json, which `pnpm content:sync`
+ * generates from the Notion "Profile" and "Socials" databases. Edit that
+ * content in Notion, not here.
+ *
+ * A plain JSON import rather than a filesystem read on purpose: this module is
+ * imported by components/layout/navbar.tsx, which is a client component, and
+ * node:fs cannot be bundled for the browser.
  */
+
+import profileData from "./profile.json";
 
 // TODO(asim): set this to your custom domain once it is registered, or set
 // NEXT_PUBLIC_SITE_URL in CI. Canonical URLs, Open Graph tags, the sitemap and
@@ -33,9 +41,10 @@ function resolveSiteUrl(): string {
 export const siteUrl = resolveSiteUrl();
 
 export const site = {
-  title: "Asim Mohamed",
-  description:
-    "AI engineer and machine learning researcher working on multilingual NLP and the safety of large language models.",
+  title: profileData.name,
+  description: profileData.description,
+  // Code-coupled: <html lang> in app/layout.tsx and <language> in the RSS feed
+  // must agree with it, so it is not worth moving to Notion.
   locale: "en",
 } as const;
 
@@ -45,45 +54,33 @@ export type SocialLink = {
   icon: "email" | "github" | "linkedin" | "scholar" | "x" | "rss";
 };
 
-export const profile = {
-  name: "Asim Mohamed",
-  role: "AI Engineer",
-  affiliation: "Enigma AI",
-  location: "Rwanda",
-  image: {
-    src: "/img/profile.jpg",
-    alt: "Asim Mohamed",
-    width: 400,
-    height: 400,
-  },
-  /**
-   * Drawn from the CV, so every claim here is checkable. TODO(asim): rewrite in
-   * your own voice -- this reads accurately but not like you.
-   */
-  bio: [
-    "I am an AI engineer at Enigma AI and a graduate of the African Master's in Machine Intelligence (AMMI) at AIMS, where my thesis was supervised by Dr. Martin Gubri of Parameter Lab.",
-    "My research sits at the intersection of multilingual NLP and the safety of large language models: whether text watermarks survive translation, readability prediction for Arabic, and machine translation for low-resource languages such as Coptic.",
-    "Before AMMI I read electrical and electronic engineering at the University of Khartoum, and I have since worked across full-stack and AI engineering. The fastest way to reach me is by email.",
-  ],
+export type Profile = {
+  name: string;
+  role: string;
+  affiliation: string | null;
+  location: string | null;
+  image: { src: string; alt: string; width: number; height: number };
+  /** Markdown, rendered through the same pipeline as posts and projects. */
+  bio: string;
+  researchInterests: string[];
   /**
    * Where the CV lives, relative to public/. The link renders only when the
    * file is actually present -- see lib/cv.ts -- so this can stay set even
-   * before the PDF is added. Set to null to hide the link outright.
+   * before the PDF is added. Null hides the link outright.
    */
-  cv: "/cv.pdf" as string | null,
-} as const;
+  cv: string | null;
+};
 
-// TODO(asim): add Google Scholar / X if you use them.
-export const socials: SocialLink[] = [
-  { label: "Email", href: "mailto:amohamed@aimsammi.org", icon: "email" },
-  { label: "GitHub", href: "https://github.com/asimzz", icon: "github" },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/asim-mohamed-9a2047135/",
-    icon: "linkedin",
-  },
-  { label: "RSS", href: "/feed.xml", icon: "rss" },
-];
+const { socials: socialLinks, ...profileFields } = profileData;
+
+export const profile: Profile = profileFields;
+
+/**
+ * `icon` is a closed union because each value maps to an imported component in
+ * components/ui/social-icons.tsx. The sync validates every Notion row against
+ * that same list, so this cast cannot smuggle in an unknown icon.
+ */
+export const socials: SocialLink[] = socialLinks as SocialLink[];
 
 export const nav = [
   { label: "about", href: "/" },

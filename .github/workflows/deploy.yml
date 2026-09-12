@@ -5,9 +5,18 @@ on:
     branches: [main]
   # Allows a manual re-deploy from the Actions tab without a new commit.
   workflow_dispatch:
+  # A "publish now" button: any HTTPS POST to the repository dispatches
+  # endpoint with event_type "publish" triggers a sync and deploy.
+  repository_dispatch:
+    types: [publish]
+  # Notion cannot notify us -- "Send webhook" is a paid feature -- so poll.
+  # Offset from the hour because GitHub delays crons at the top of the hour.
+  schedule:
+    - cron: "7,37 * * * *"
 
 permissions:
-  contents: read
+  # write, not read: the sync commits the content it pulled from Notion.
+  contents: write
   pages: write
   id-token: write
 
@@ -20,6 +29,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      deploy: ${{ steps.decide.outputs.deploy }}
     steps:
       - uses: actions/checkout@v5
 
@@ -34,20 +45,95 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - run: pnpm build
+      # The only step that sees the Notion token. `pnpm build` below never
+      # receives it, so it cannot end up in the client bundle.
+      #
+      # continue-on-error so that a code push still deploys when Notion is
+      # unreachable: the committed content is already correct.
+      - name: Sync content from Notion
+        id: sync
+        continue-on-error: true
+        run: pnpm content:sync
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DB_PROFILE: ${{ vars.NOTION_DB_PROFILE }}
+          NOTION_DB_SOCIALS: ${{ vars.NOTION_DB_SOCIALS }}
+          NOTION_DB_NEWS: ${{ vars.NOTION_DB_NEWS }}
+          NOTION_DB_PUBLICATIONS: ${{ vars.NOTION_DB_PUBLICATIONS }}
+          NOTION_DB_PROJECTS: ${{ vars.NOTION_DB_PROJECTS }}
+          NOTION_DB_POSTS: ${{ vars.NOTION_DB_POSTS }}
+
+      # A scheduled run that failed to reach Notion has nothing to do. Any
+      # other trigger carries a code change, so it should still deploy.
+      - name: Stop if the scheduled sync failed
+        if: steps.sync.outcome == 'failure' && github.event_name == 'schedule'
+        run: |
+          echo "::error::Scheduled Notion sync failed; nothing to deploy."
+          exit 1
+
+      # Git is the change detector: no timestamp bookkeeping, no cache, and an
+      # edit-then-undo in Notion produces no deploy.
+      - name: Detect content changes
+        id: changes
+        run: |
+          if git diff --quiet -- content public; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git --no-pager diff --stat -- content public
+          fi
+
+      - name: Commit synced content
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content public
+          git commit -m "chore(content): sync from notion"
+          # Pushes made with GITHUB_TOKEN do not trigger workflows, so this
+          # cannot loop back into another run of this file.
+          git push || {
+            git pull --rebase --autostash origin main && git push
+          }
+
+      # Only a scheduled run is allowed to decide there is nothing to do.
+      - name: Decide whether to deploy
+        id: decide
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            echo "deploy=${{ steps.changes.outputs.changed }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - if: steps.decide.outputs.deploy == 'true'
+        run: pnpm build
         env:
           # Overrides the fallback in content/site.ts so canonical URLs, the
           # sitemap and the RSS feed all point at the real domain.
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL }}
 
-      - uses: actions/configure-pages@v5
+      # Cheap backstop: greps for the token *prefix*, so the secret itself
+      # never appears in a command line or a log.
+      - name: Fail if a Notion token reached the bundle
+        if: steps.decide.outputs.deploy == 'true'
+        run: |
+          if grep -rqI -e 'ntn_' -e 'secret_' out/; then
+            echo "::error::A Notion token pattern was found in out/"
+            exit 1
+          fi
 
-      - uses: actions/upload-pages-artifact@v4
+      - if: steps.decide.outputs.deploy == 'true'
+        uses: actions/configure-pages@v5
+
+      - if: steps.decide.outputs.deploy == 'true'
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./out
 
   deploy:
     needs: build
+    if: needs.build.outputs.deploy == 'true'
     runs-on: ubuntu-latest
     environment:
       name: github-pages

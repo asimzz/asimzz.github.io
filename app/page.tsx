@@ -10,6 +10,7 @@ import { profile } from "@/content/site";
 import { formatDate } from "@/lib/content";
 import { getLatestPosts } from "@/lib/posts";
 import { getCvHref } from "@/lib/cv";
+import { Mdx } from "@/lib/mdx";
 import { getFeaturedProjects } from "@/lib/projects";
 import { getSelectedPublications } from "@/lib/publications";
 
@@ -66,9 +67,7 @@ export default function AboutPage() {
       </section>
 
       <div className="prose mt-10">
-        {profile.bio.map((paragraph, index) => (
-          <p key={index}>{paragraph}</p>
-        ))}
+        <Mdx source={profile.bio} />
       </div>
 
       {news.length > 0 && (
