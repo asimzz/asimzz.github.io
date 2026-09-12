@@ -5,14 +5,14 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --canvas: #fdfdfc;
+  --canvas: #faf9f6;
   --surface: #ffffff;
   --ink: #1a1a18;
   --ink-muted: #5c5c56;
   --ink-faint: #8a8a82;
   --line: #e5e4e0;
-  --accent: #9a3412;
-  --accent-soft: #fdf1ea;
+  --accent: #1c4a3f;
+  --accent-soft: #e9f1ed;
 }
 
 .dark {
@@ -22,8 +22,8 @@
   --ink-muted: #a3a099;
   --ink-faint: #74716b;
   --line: #2c2c29;
-  --accent: #ea9070;
-  --accent-soft: #2a1b14;
+  --accent: #7fbcab;
+  --accent-soft: #16241f;
 }
 
 @theme inline {
