@@ -1,9 +1,10 @@
-import { FaRss, FaXTwitter } from "react-icons/fa6";
+import { FaRss } from "react-icons/fa6";
 import {
   EmailIcon,
   GitHubIcon,
   LinkedInIcon,
   ScholarIcon,
+  XIcon,
   type IconProps,
 } from "@/components/ui/icons";
 import { socials, type SocialLink } from "@/content/site";
@@ -20,7 +21,7 @@ const icons: Record<SocialLink["icon"], SocialIcon> = {
   github: GitHubIcon,
   linkedin: LinkedInIcon,
   scholar: ScholarIcon,
-  x: FaXTwitter,
+  x: XIcon,
   rss: FaRss,
 };
 
