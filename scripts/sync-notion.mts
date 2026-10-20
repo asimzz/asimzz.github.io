@@ -184,7 +184,11 @@ async function readBody(
   slug: string,
 ): Promise<string> {
   const label = rowLabel(row);
-  const raw = await fetchMarkdown(notion, row.page.id, label);
+  // Notion exports each empty paragraph as a literal <empty-block/> tag.
+  const raw = (await fetchMarkdown(notion, row.page.id, label)).replace(
+    /^<empty-block\/>\s*$/gm,
+    "",
+  );
 
   const replacements = new Map<string, string>();
   for (const [index, href] of imageUrls(raw).entries()) {
