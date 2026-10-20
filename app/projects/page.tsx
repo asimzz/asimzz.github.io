@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { PageHeader } from "@/components/ui/page-header";
 import { Tag } from "@/components/ui/tag";
@@ -38,15 +37,6 @@ export default function ProjectsPage() {
                 href={`/projects/${project.slug}`}
                 className="border-line hover:border-accent/50 bg-surface group flex h-full flex-col overflow-hidden rounded-lg border transition-colors"
               >
-                {project.image && (
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    width={800}
-                    height={450}
-                    className="aspect-video w-full object-cover"
-                  />
-                )}
                 <div className="flex flex-1 flex-col p-4">
                   <h2 className="group-hover:text-accent font-serif text-base font-semibold tracking-tight transition-colors">
                     {project.title}
