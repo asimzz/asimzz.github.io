@@ -89,7 +89,7 @@ export default async function ProjectPage({
           width={1200}
           height={675}
           priority
-          className="border-line mb-8 w-full rounded-lg border object-cover"
+          className="mb-8 w-full rounded-lg object-cover"
         />
       )}
 
